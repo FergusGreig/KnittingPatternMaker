@@ -14,3 +14,7 @@ Eventually this could become an intereactive knitwear designer but currently I'm
 4. visualises design
 4. formats output into pattern
 
+## Current project:
+
+A web app that lets users create and display repeating fairisle style patterns
+
