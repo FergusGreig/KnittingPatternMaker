@@ -5,12 +5,12 @@ function makeGrid(rows, cols) {
     for (let i = 0; i < rows; i++) {
         row = tableElem.insertRow(i);
         let pattRow = pattElem.firstElementChild.children[i].cells
-        for (let k=1; k<pattRow.length; k++){ 
+        for (let k=1; k<pattRow.length-1; k++){ 
             patternColours[k-1] = pattRow[k].style.backgroundColor
         }
         for (let j = 0; j < cols; j++) {
             cell = row.insertCell(j)
-            cell.style.backgroundColor = patternColours[j%5]
+            cell.style.backgroundColor = patternColours[j%patternColours.length]
         }
     }
 }

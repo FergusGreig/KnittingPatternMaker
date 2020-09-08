@@ -4,13 +4,13 @@ h1 {
     font-size: 5em;
 }
 
-table,
 tr,
 td {
     border: 1px solid black;
 }
 
 table {
+    border-style: none;
     border-collapse: collapse;
     margin: 0 auto;
 }
