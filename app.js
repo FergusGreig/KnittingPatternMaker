@@ -10,7 +10,7 @@ function makeGrid(rows, cols) {
         }
         for (let j = 0; j < cols; j++) {
             cell = row.insertCell(j)
-            cell.style.backgroundColor = patternColours[j%4]
+            cell.style.backgroundColor = patternColours[j%5]
         }
     }
 }
@@ -19,7 +19,7 @@ function makeGrid(rows, cols) {
 var rowindex = 1;
 var width;
 var height;
-var patternColours = ['','','','',''];
+var patternColours = [];
 const tableElem = document.getElementById('Swatch');
 const pattElem = document.getElementById('pattern');
 const pickerElem = document.getElementById('yarn1');
