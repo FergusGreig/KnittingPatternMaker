@@ -4,9 +4,9 @@ function makeGrid(rows, cols) {
 
     for (let i = 0; i < rows; i++) {
         row = tableElem.insertRow(i);
-
-        for (let k=1; k<6; k++){ 
-            patternColours[k-1] = pattElem.firstElementChild.children[i].cells[k].style.backgroundColor
+        let pattRow = pattElem.firstElementChild.children[i].cells
+        for (let k=1; k<pattRow.length; k++){ 
+            patternColours[k-1] = pattRow[k].style.backgroundColor
         }
         for (let j = 0; j < cols; j++) {
             cell = row.insertCell(j)
@@ -29,7 +29,7 @@ const updateButt = document.getElementById('updateSwatch')
 
 
 // EVENTS:
-// yarnButt.addEventListener("click", function(event){})
+// yarnButt.addEventListener("click", function(event){}) 
 
 updateButt.addEventListener('click', function (event) {
     event.preventDefault();
@@ -37,12 +37,12 @@ updateButt.addEventListener('click', function (event) {
 })
 rowButt.addEventListener('click', function (event) {
     rowindex++
-    row = pattElem.insertRow()
-    index = row.insertCell();
+    let row = pattElem.insertRow()
+    let index = row.insertCell();
     index.innerHTML = rowindex;
-    for (let i = 1; i < 6; i++) {
-        row.insertCell(i)
-    }
+    row.insertCell(1); // empty box
+    let addBox = row.insertCell(2);
+    addBox.innerHTML = '+'; // a box with a plus sign in
 })
 
 // Submit button makes a new table
@@ -53,12 +53,18 @@ rowButt.addEventListener('click', function (event) {
 //     makeGrid(height,width)
 // })
 
-// Clicking boxes colours them in.
+// Clicking empty boxes colours them in, clicking (+) box adds a new box.
 pattElem.addEventListener('click', function (event) {
     if (event.target.innerHTML == '') {
-        event.target.style.backgroundColor = pickerElem.value;
-    }
-    /* As only the <td> elements will be blank in size this effectively 
+        event.target.style.backgroundColor = pickerElem.value; 
+        /* As only the <td> elements will be blank in size this effectively 
      prevents unexpected colouring.
      */
+    } else if (event.target.innerHTML == '+'){
+        event.target.innerHTML = ''; //clears current plus box
+        let row = event.target.parentElement;
+        let addBox = row.insertCell(row.childElements);
+        addBox.innerHTML ='+' //appends a new plusbox
+    }
+   
 })
