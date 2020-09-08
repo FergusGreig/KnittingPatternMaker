@@ -17,7 +17,7 @@ function makeGrid(rows, cols) {
 }
 
 //DECLARATIONS
-var rowindex = 1;
+var rowIndex = 1;
 var width;
 var height;
 var patternColours = [];
@@ -25,8 +25,9 @@ const tableElem = document.getElementById('Swatch');
 const pattElem = document.getElementById('pattern');
 const pickerElem = document.getElementById('yarn1');
 const yarnButt = document.getElementById('addYarn');
-const rowButt = document.getElementById('addRow');
-const updateButt = document.getElementById('updateSwatch')
+const addRowButt = document.getElementById('addRow');
+const remRowButt = document.getElementById('remRow');
+const updateButt = document.getElementById('updateSwatch');
 
 
 // EVENTS:
@@ -34,20 +35,28 @@ const updateButt = document.getElementById('updateSwatch')
 
 updateButt.addEventListener('click', function (event) {
     event.preventDefault();
-    makeGrid(rowindex, 30);
+    makeGrid(rowIndex, 30);
 })
-rowButt.addEventListener('click', function (event) {
-    rowindex++
+addRowButt.addEventListener('click', function (event) {
+    rowIndex++
     let row = pattElem.insertRow()
     let index = row.insertCell();
-    index.innerHTML = rowindex;
+    index.innerHTML = rowIndex;
     index.className='numBox'
     row.insertCell(1); // empty box
     let addBox = row.insertCell(2);
     addBox.innerHTML = '+'; // a box with a plus sign in
-    addBox.className='plusBox'
+    addBox.className = 'pmBox';
+    let decBox = row.insertCell(3);
+    decBox.innerHTML = '-';
+    decBox.className = 'pmBox'
 })
-
+remRowButt.addEventListener('click', function(event){
+    if (pattElem.rows.length > 1){
+        pattElem.deleteRow(-1);
+        rowIndex--;
+    }
+})
 // Submit button makes a new table
 // formElem.addEventListener("submit",function(event){
 //     event.preventDefault();
@@ -56,20 +65,20 @@ rowButt.addEventListener('click', function (event) {
 //     makeGrid(height,width)
 // })
 
-// Clicking empty boxes colours them in, clicking (+) box adds a new box.
+// Clicking empty boxes colours them in, clicking (+) box adds a new box, clicking - removes a box.
 pattElem.addEventListener('click', function (event) {
-    if (event.target.innerHTML == '') {
-        event.target.style.backgroundColor = pickerElem.value; 
-        /* As only the <td> elements will be blank in size this effectively 
-     prevents unexpected colouring.
-     */
-    } else if (event.target.innerHTML == '+'){
-        event.target.innerHTML = ''; //clears current plus box
-        event.target.className = '';
-        let row = event.target.parentElement;
-        let addBox = row.insertCell(row.childElements);
-        addBox.innerHTML ='+' //appends a new plusbox
-        addBox.className = 'plusBox'
-    }
-   
+    let row = event.target.parentElement;
+    switch (event.target.innerHTML){
+        case '':
+            event.target.style.backgroundColor = pickerElem.value; // changes box colour
+            break;
+        case '+':
+            row.insertCell(row.cells.length - 2); // appends an empty box
+            break;
+        case '-':
+            if (row.cells.length > 4){ // Checks there is more than one colour box
+                row.deleteCell(row.cells.length-3); // removes last colour box
+            }
+            break;
+        }
 })
