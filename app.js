@@ -41,9 +41,11 @@ rowButt.addEventListener('click', function (event) {
     let row = pattElem.insertRow()
     let index = row.insertCell();
     index.innerHTML = rowindex;
+    index.className='numBox'
     row.insertCell(1); // empty box
     let addBox = row.insertCell(2);
     addBox.innerHTML = '+'; // a box with a plus sign in
+    addBox.className='plusBox'
 })
 
 // Submit button makes a new table
@@ -63,9 +65,11 @@ pattElem.addEventListener('click', function (event) {
      */
     } else if (event.target.innerHTML == '+'){
         event.target.innerHTML = ''; //clears current plus box
+        event.target.className = '';
         let row = event.target.parentElement;
         let addBox = row.insertCell(row.childElements);
         addBox.innerHTML ='+' //appends a new plusbox
+        addBox.className = 'plusBox'
     }
    
 })
