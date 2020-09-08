@@ -1,10 +1,16 @@
 // FUNCTIONS
 function makeGrid(rows, cols) {
     tableElem.innerHTML = ''; // clears the grid
+
     for (let i = 0; i < rows; i++) {
         row = tableElem.insertRow(i);
+
+        for (let k=1; k<6; k++){ 
+            patternColours[k-1] = pattElem.firstElementChild.children[i].cells[k].style.backgroundColor
+        }
         for (let j = 0; j < cols; j++) {
-            row.insertCell(j)
+            cell = row.insertCell(j)
+            cell.style.backgroundColor = patternColours[j%4]
         }
     }
 }
@@ -13,6 +19,7 @@ function makeGrid(rows, cols) {
 var rowindex = 1;
 var width;
 var height;
+var patternColours = ['','','','',''];
 const tableElem = document.getElementById('Swatch');
 const pattElem = document.getElementById('pattern');
 const pickerElem = document.getElementById('yarn1');
@@ -26,7 +33,7 @@ const updateButt = document.getElementById('updateSwatch')
 
 updateButt.addEventListener('click', function (event) {
     event.preventDefault();
-    makeGrid(30, 30);
+    makeGrid(rowindex, 30);
 })
 rowButt.addEventListener('click', function (event) {
     rowindex++
