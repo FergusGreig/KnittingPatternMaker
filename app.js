@@ -4,6 +4,7 @@ function makeGrid(rows, cols) {
 
     for (let i = 0; i < rows; i++) {
         row = tableElem.insertRow(i);
+        patternColours = [];
         let pattRow = pattElem.firstElementChild.children[i].cells
         for (let k=1; k<pattRow.length-1; k++){ 
             patternColours[k-1] = pattRow[k].style.backgroundColor
